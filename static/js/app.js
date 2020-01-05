@@ -9,8 +9,32 @@ d3.json("Final_Table.json").then(function(wine_data) {
     var wine_year=[];
     for (var i=0;i< 30000;i++){
       wine_year.push(wine_data.vintage[i])};
+    var wine_color=[];
+    for (var i=0;i< 30000;i++){
+      wine_color.push(wine_data.color[i])};
 
-    
+        var red=[];
+        for (var i=0;i< 30000;i++){
+      if (wine_data.color[i]==="Red") 
+      { red.push(wine_data.score[i])}}
+     ;
+
+      var white=[];
+        for (var i=0;i< 30000;i++){
+      if(wine_data.color[i]==="White"){
+       white.push(wine_data.score[i])
+      }
+     };
+
+      var pink=[];
+        for (var i=0;i< 30000;i++){
+      if(wine_data.color[i]==="Pink") {
+ pink.push(wine_data.score[i])
+      }
+     };
+      
+      
+        
   //   var subject_id=[];
 
   // for (var i = 0; i < sampledata.length; i++) {
@@ -33,13 +57,15 @@ d3.json("Final_Table.json").then(function(wine_data) {
     var trace1 = {
       x: wine_year,
         y: wine_score,
-        text:"test",
+        text:wine_color,
         mode:'markers',
+        paper_bgcolor: 'rgb(243, 243, 243)',
         marker:{
             size: 5,
-            // color:wine_color,
+            color:wine_color,
 
         },
+        
         type:'scatter'};
       
   
@@ -56,10 +82,71 @@ d3.json("Final_Table.json").then(function(wine_data) {
   
     // Plot the chart to a div tag with id "plot"
     Plotly.newPlot("bar", data, layout);
+console.log(wine_score[1])
+var xData = ['Red','White','Pink'];
+
+
+
+var yData = [
+       red,white,pink
+    ];
+var color=["#ea0437","#bababa","#ffc0cb"]
+var color2=["#fc3f69","#f9f9f9","#fff3f5"]
+    var data2 = [];
+
+for ( var i = 0; i < 30000; i ++ ) {
+    var result = {
+        type: 'box',
+        y: yData[i],
+        name: xData[i],
+        boxpoints: 'all',
+        jitter: 0.4,
+        whiskerwidth: 0.2,
+        fillcolor: color2[i],
+          marker: {
+            size: 2
+        },
+        marker:{
+    color: color[i]
+  },
+        line: {
+            width: 2
+           }
+    };
+    data2.push(result);
+};
+console.log(data2)
+
+layout2 = {
+    title: 'Score Distribution by Wine Color',
+    yaxis: {
+        autorange: true,
+        showgrid: true,
+        zeroline: true,
+        dtick: 5,
+        gridcolor: "#e0e0e0",
+        gridwidth: 0.5,
+        zerolinecolor: 'rgb(255, 255, 255)',
+        zerolinewidth: 2
+    },
+    margin: {
+        l: 40,
+        r: 30,
+        b: 80,
+        t: 100
+    },
+    paper_bgcolor: '#fffff',
+    plot_bgcolor: '#fffff',
+    showlegend: false
+};
+
+Plotly.newPlot("bubble", data2, layout2);
 
 })
 };
 init();
+
+
 
 //     //plot scatter plot
 //     var trace2 = {
