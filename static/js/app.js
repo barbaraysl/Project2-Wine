@@ -1,5 +1,4 @@
 
-
 function init() {
 d3.json("Final_Table.json").then(function(wine_data) {
     // console.log(wine_data);
